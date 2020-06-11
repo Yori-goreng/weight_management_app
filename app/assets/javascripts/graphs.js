@@ -1,4 +1,33 @@
 document.addEventListener('turbolinks:load', () => {
+    const minDate = (date1, date2) => (date1 < date2) ? date1 : date2
+    const maxDate = (date1, date2) => (date1 < date2) ? date1 : date2
+
+    const START_DATE = convertDate(gon.weight_records[0].date)
+    const END_DATE = convertDate(gon.weight_records[gon.weight_records.length -1].date)
+
+    flatpickr.localize(flatpickr.l10s.ja)
+
+    const drawGraphForPeriod = () => {
+        let from = convertDate(document.getElementById('start-calendar').value)
+        let to = convertDate(document.getElementById('end-calendar').value)
+
+        if (from > to) {
+            alert('終了日は開始日以降の日付に設定して下さい')
+        } else {
+            drawGraph(from, to)
+        }
+    }
+
+    const PeriodCalendarOption = {
+        disableMobile: true,
+        minDate: START_DATE,
+        maxDate: END_DATE,
+        onchange: drawGraphForPeriod
+    }
+
+    const startCalenderFlatpickr = flatpickr('#start-calender', periodCalendarOption)
+    const endCalenderFlatpickr = flatpickr('#end-calender', periodCalendarOption)
+
     // '2020-01-12'のような文字列から，Javascriptの日付オブジェクトを取得する関数
     // setHoursを使用しないと，時差の影響で0時にならないため注意！
     const convertDate = (date) => new Date(new Date(date).setHours(0, 0, 0, 0))
@@ -12,8 +41,27 @@ document.addEventListener('turbolinks:load', () => {
     // グラフを描く場所を取得
     const chartWeightContext = document.getElementById("chart-weight").getContext('2d')
 
+    // 関数内で変数宣言をするとローカル変数となり，関数の外で消えてしまう
+    // drawGraph 関数の外で変数宣言をしなければならない!
+    let chartWeight
+
     // 期間を指定してグラフを描く
     const drawGraph = (from, to) => {
+
+        if (!chartWeight) {
+            // グラフが存在しないときは，作成する
+            chartWeight = new Chart(chartWeightContext, {
+                type: 'line',
+                data: weightData,
+                options: weightOption
+            })
+        } else {
+            // グラフが存在するときは，更新する
+            chartWeight.data = weightData
+            chartWeight.options = weightOption
+            chartWeight.update()
+        }
+
         // from から to までの期間のデータに絞る
         let records = gon.weight_records.filter((record) => {
             let date = convertDate(record.date)
@@ -55,14 +103,35 @@ document.addEventListener('turbolinks:load', () => {
                 }
             }
         }
-
-        new Chart(chartWeightContext, {
-            type: 'line',
-            data: weightData,
-            options: weightOption
-        })
     }
 
+    const drawGraphToToday = (from) => {
+        from = maxDate(from, START_DATE)
+        let to = minDate(TODAY, END_DATE)
+        drawGraph(from, to)
+
+        startCalenderFlatpickr.setDate(from)
+        endCalenderFlatpickr.setDate(to)
+    }
+
+    document.getElementById('a-week-button').addEventListener('click', () => {
+        drawGraphToToday(A_WEEK_AGO)
+    })
+
+    document.getElementById('two-weeks-button').addEventListener('click', () => {
+        drawGraphToToday(TWO_WEEKS_AGO)
+    })
+
+    document.getElementById('a-month-button').addEventListener('click', () => {
+        drawGraphToToday(A_MONTH_AGO)
+    })
+
+    document.getElementById('three-months-button').addEventListener('click', () => {
+        drawGraphToToday(THREE_MONTHS_AGO)
+    })
+
+
+
     // グラフの初期表示
-    drawGraph(A_WEEK_AGO, TODAY)
+    drawGraphToToday(A_WEEK_AGO)
 })
