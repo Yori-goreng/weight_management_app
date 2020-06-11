@@ -33,3 +33,9 @@ div.alert-notice {
 div.alert-alert {
   @extend .alert-danger;
 }
+
+//モーダル
+button.close {
+  overflow : hidden;
+  outline : none;
+}
