@@ -4,20 +4,20 @@
     <title>体重管理アプリ</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta name="viewpoint" content="width=device-width, initial-scale=1">
-
-      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render 'shared/header' %>
-    <% if controller_name == 'graphs' %>
-      <%= render 'shared/flash_messages' %>
-    <% end %>
-
-    <div class="graph-container">
-      <%= yield %>
-    </div>
+  <!-- 全ページにナビバーを追加 -->
+  <%= render 'shared/header' %>
+  <!-- ログイン関連ページ以外にフラッシュ表示部分を追加 -->
+  <% if controller_name == 'graphs' %>
+    <%= render 'shared/flash_messages' %>
+  <% end %>
+  <div class="graph-container">
+    <%= yield %>
+  </div>
   </body>
 </html>

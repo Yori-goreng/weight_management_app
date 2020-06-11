@@ -1,25 +1,19 @@
-<p class="mt-4">Bootstrap</p>
-<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#test-modal">モーダル</button>
-<div class="modal fade" id="test-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">タイトル</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>本文はここに書きます</p>
-      </div>
-      <div class="modal-footer">
-        <p>フッターはここに書きます</p>
-      </div>
-    </div>
+<%= Gon::Base.render_data %>
+
+<div class="row">
+  <div class="col-6">
+    <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#new-modal">
+      新規登録
+    </button>
+  </div>
+  <div class="col-6">
+    <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#edit-modal">
+      記録の修正
+    </button>
   </div>
 </div>
 
-<%= Gon::Base.render_data %>
+
 <div class="row no-gutters">
   <div class="input-group col-sm-6 pr-sm-3 mt-3">
     <div class="input-group-prepend">
@@ -34,6 +28,7 @@
     <input type="text" id="end-calendar" class="form-control bg-white text-center">
   </div>
 </div>
+
 
 <div class="row">
   <div class="col-6 col-sm-3">
@@ -50,13 +45,7 @@
   </div>
 </div>
 
-<canvas id="chart-weight"></canvas>
+<canvas id="chart-weight" class="mt-5"></canvas>
 
-<p class="my-4">flatpickr</p>
-<input class="form-control bg-white" id="date-form" type="text" placeholder="日付を設定" readonly>
-
-<p class="mt-4">Chart.js</p>
-<canvas id="bar-chart"></canvas>
-
-<p class="mt-4">Chart.js</p>
-<canvas id="line-chart"></canvas>
+<%= render 'modal', action: 'new', title: '新規登録' %>
+<%= render 'modal', action: 'edit', title: '修正' %>
