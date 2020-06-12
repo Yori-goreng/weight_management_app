@@ -30,6 +30,8 @@ class GraphsController < ApplicationController
     redirect_to root_path
   end
 
+  private
+
   def graph_params
     params.require(:graph).permit(:date, :weight)
   end

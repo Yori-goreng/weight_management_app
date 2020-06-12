@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  *= require flatpickr
- *= require flatpickr/themes/dark
+ *= require flatpickr/themes/material_blue
  */
 
  @import "bootstrap";
@@ -35,6 +35,7 @@ div.alert-alert {
 }
 
 //モーダル
+
 button.close {
   overflow : hidden;
   outline : none;
