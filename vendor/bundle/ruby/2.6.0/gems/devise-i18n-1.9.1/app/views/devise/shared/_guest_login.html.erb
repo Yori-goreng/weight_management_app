@@ -1,0 +1,6 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= f.hidden_field :email, value: 'guest@example.com' %>
+        <%= f.hidden_field :password, value: 'password' %>
+        <%= f.submit 'かんたんログイン', { class:'btn btn-secondary' } %>
+    <% end %>
+    
