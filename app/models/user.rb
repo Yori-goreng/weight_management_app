@@ -6,3 +6,4 @@ class User < ApplicationRecord
 
   has_many :graphs, dependent: :destroy
 end
+.
