@@ -7,22 +7,21 @@ class GraphsController < ApplicationController
 
     gon.weight_records = Graph.chart_data(current_user)
     gon.recorded_dates = current_user.graphs.map(&:date)
-    gon.records = Graph.chart_data(User.find_by(id: 1))
     gon.start_date = gon.records.first[:date].strftime('%Y-%m-%d')
     gon.end_date = gon.records.last[:date].strftime('%Y-%m-%d')
     gon.basal_metabolism = User.find_by(id: 1).basal_metabolism
   end
 
   def create
-      @graph = current_user.graphs.build(graph_params)
-      @graph = Graph.new
-      date = @graph.date.strftime('%Y/%-m/%-d')
-      if @graph.save
-        flash[:notice] = "#{date}の記録を追加しました"
-      else
-        flash[:alert] = 'エラーが発生しました'
-      end
-      redirect_to root_path
+    @graph = current_user.graphs.build(graph_params)
+    @graph = Graph.new
+    date = @graph.date.strftime('%Y/%-m/%-d')
+    if @graph.save
+      flash[:notice] = "#{date}の記録を追加しました"
+    else
+      flash[:alert] = 'エラーが発生しました'
+    end
+    redirect_to root_path
   end
 
   def new
