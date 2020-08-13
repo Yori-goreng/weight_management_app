@@ -27,4 +27,12 @@ class RecordsController < ApplicationController
 
   private
 
+  def record_params
+    params.require(:record).permit(:record_date, :morning_cal, :morning_image, :lunch_cal, :lunch_image, :dinner_cal, :dinner_image, :motion1, :motion1_hour, :motion1_minute, :consumption1_cal, :motion2, :motion2_hour, :motion2_minute, :consumption2_cal, :motion3, :motion3_hour, :motion3_minute, :consumption3_cal, :weight)
+  end
+
+  def params_record_search
+    params.permit(:search_weight)
+  end
+
 end
