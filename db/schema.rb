@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_12_150905) do
+ActiveRecord::Schema.define(version: 2020_08_12_150409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "graphs", force: :cascade do |t|
-    t.date "date", null: false
-    t.float "weight", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "date"], name: "index_graphs_on_user_id_and_date", unique: true
-    t.index ["user_id"], name: "index_graphs_on_user_id"
-  end
 
   create_table "records", force: :cascade do |t|
     t.integer "morning_cal"
@@ -36,10 +26,9 @@ ActiveRecord::Schema.define(version: 2020_08_12_150905) do
     t.string "motion"
     t.integer "motion_time"
     t.integer "consumption_cal"
-    t.float "weight"
+    t.integer "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "record_date"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,5 +50,4 @@ ActiveRecord::Schema.define(version: 2020_08_12_150905) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "graphs", "users"
 end

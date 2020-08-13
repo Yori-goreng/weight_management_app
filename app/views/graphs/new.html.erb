@@ -1,0 +1,66 @@
+<% @graph.errors.full_messages.each do |message| %>
+  <div class="form-error">
+    <%= message %>
+  </div>
+<% end %>
+
+
+<%= form_for @graph, url: graphs_path, html:{method: :post} do |f| %>
+  <h2>新規投稿</h2>
+
+
+  <h3>記録日</h3>
+  <p class="input_label">いつの記録を行いますか？</p>
+  <p><%= f.date_field :date %></p>
+
+
+  <h3>摂取カロリー</h3>
+  <p class="input_label">朝食</p>
+  <p><%= f.number_field :morning_cal %></p>
+  <p><%= f.file_field :morning_image %></p>
+
+  <p class="input_label">昼食</p>
+  <p><%= f.number_field :lunch_cal %></p>
+  <p><%= f.file_field :lunch_image %></p>
+
+  <p class="input_label">夕食</p>
+  <p><%= f.number_field :dinner_cal %></p>
+  <p><%= f.file_field :dinner_image %></p>
+
+  <h3>消費カロリー</h3>
+  <p class="input_label">運動1</p>
+  <p><%= f.text_field :motion1 %></p>
+
+  <p class="input_label">運動1時間</p>
+  <p><%= f.number_field :motion1_hour %>時間</p>
+  <p><%= f.number_field :motion1_minute %>分</p>
+
+  <p class="input_label">運動1カロリー</p>
+  <p><%= f.number_field :consumption1_cal %></p>
+
+  <p class="input_label">運動2</p>
+  <p><%= f.text_field :motion2 %></p>
+
+  <p class="input_label">運動2時間</p>
+  <p><%= f.number_field :motion2_hour %>時間</p>
+  <p><%= f.number_field :motion2_minute %>分</p>
+
+  <p class="input_label">運動2カロリー</p>
+  <p><%= f.number_field :consumption2_cal %></p>
+
+  <p class="input_label">運動3</p>
+  <p><%= f.text_field :motion3 %></p>
+
+  <p class="input_label">運動3時間</p>
+  <p><%= f.number_field :motion3_hour %>時間</p>
+  <p><%= f.number_field :motion3_minute %>分</p>
+
+  <p class="input_label">運動3カロリー</p>
+  <p><%= f.number_field :consumption3_cal %></p>
+
+  <h3>今日の体重</h3>
+  <p class="input_label">体重</p>
+  <p><%= f.number_field :weight, :class => 'text_field', :step => 0.1 %></p>
+
+  <input type="submit" value="送信">
+<% end %>

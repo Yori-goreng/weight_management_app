@@ -64,9 +64,9 @@
 </dl>
 
 
-<% @records.each do |record| %>
-  <div class="container record_list">
-    <p class="measure">計測日：<%= record.record_date %></p>
+<% @graphs.each do |graph| %>
+  <div class="container graph_list">
+    <p class="measure">計測日：<%= graph.graph_date %></p>
     <div class="row ">
         <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="intake">
@@ -74,21 +74,21 @@
               <thead>
                 <tr class="intake_title">
                   <td scope="col">トータル摂取カロリー</td>
-                  <th scope="col"><%= record.intake_cal %>Kcal</th>
+                  <th scope="col"><%= graph.intake_cal %>Kcal</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th>朝食</th>
-                  <td data-label="朝食" class="price"><%= record.morning_cal %>Kcal</td>
+                  <td data-label="朝食" class="price"><%= graph.morning_cal %>Kcal</td>
                 </tr>
                 <tr>
                   <th>昼食</th>
-                  <td data-label="昼食"class="price"><%= record.lunch_cal %>Kcal</td>
+                  <td data-label="昼食"class="price"><%= graph.lunch_cal %>Kcal</td>
                 </tr>
                 <tr>
                   <th>夕食</th>
-                  <td data-label="夕食"class="price"><%= record.dinner_cal %>Kcal</td>
+                  <td data-label="夕食"class="price"><%= graph.dinner_cal %>Kcal</td>
                 </tr>
               </tbody>
             </table>
@@ -101,30 +101,30 @@
               <thead>
                 <tr class="consumption1_title">
                   <td scope="col">トータル消費カロリー</td>
-                  <th scope="col"><%= (record.total_consumption_cal + record.user.basal_metabolism).round %>Kcal</th>
+                  <th scope="col"><%= (graph.total_consumption_cal + graph.user.basal_metabolism).round %>Kcal</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th>基礎代謝</th>
-                  <td data-label="朝食" class="price"><%= (record.user.basal_metabolism).round %>Kcal</td>
+                  <td data-label="朝食" class="price"><%= (graph.user.basal_metabolism).round %>Kcal</td>
                 </tr>
-                <% if !record.motion1.blank? %>
+                <% if !graph.motion1.blank? %>
                   <tr>
-                    <th><%= record.motion1 %></th>
-                    <td data-label="朝食" class="price"><%= record.consumption1_cal %>Kcal</td>
+                    <th><%= graph.motion1 %></th>
+                    <td data-label="朝食" class="price"><%= graph.consumption1_cal %>Kcal</td>
                   </tr>
                 <% end %>
-                <% if !record.motion2.blank? %>
+                <% if !graph.motion2.blank? %>
                   <tr>
-                    <th><%= record.motion2 %></th>
-                    <td data-label="朝食" class="price"><%= record.consumption2_cal %>Kcal</td>
+                    <th><%= graph.motion2 %></th>
+                    <td data-label="朝食" class="price"><%= graph.consumption2_cal %>Kcal</td>
                   </tr>
                 <% end %>
-                <% if !record.motion3.blank? %>
+                <% if !graph.motion3.blank? %>
                   <tr>
-                    <th><%= record.motion3 %></th>
-                    <td data-label="朝食" class="price"><%= record.consumption3_cal %>Kcal</td>
+                    <th><%= graph.motion3 %></th>
+                    <td data-label="朝食" class="price"><%= graph.consumption3_cal %>Kcal</td>
                   </tr>
                 <% end %>
               </tbody>
@@ -138,7 +138,7 @@
               <thead>
                 <tr class="today_cal_title">
                   <td scope="col">本日のカロリー</td>
-                  <th scope="col"><%= (record.cal_judge - record.user.basal_metabolism).round %>Kcal</th>
+                  <th scope="col"><%= (graph.cal_judge - graph.user.basal_metabolism).round %>Kcal</th>
                 </tr>
               </thead>
             </table>
@@ -146,7 +146,7 @@
               <thead>
                 <tr class="today_weight_title">
                   <td scope="col">本日の体重</td>
-                  <th scope="col"><%= record.weight %>Kg</th>
+                  <th scope="col"><%= graph.weight %>Kg</th>
                 </tr>
               </thead>
             </table>
