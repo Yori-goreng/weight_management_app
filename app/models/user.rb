@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :graphs, dependent: :destroy
-  has_many :records
 
   before_save do
     if gender == '男'

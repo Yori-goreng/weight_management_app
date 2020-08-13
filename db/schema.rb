@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_12_150409) do
+ActiveRecord::Schema.define(version: 2020_08_13_060007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "graphs", force: :cascade do |t|
+    t.integer "morning_cal"
+    t.string "morning_image"
+    t.integer "lunch_cal"
+    t.string "lunch_image"
+    t.integer "dinner_cal"
+    t.string "dinner_string"
+    t.integer "total_cal"
+    t.string "motion"
+    t.integer "motion_time"
+    t.integer "consumption_cal"
+    t.float "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.string "dinner_image"
+    t.integer "intake_cal"
+    t.string "motion1"
+    t.integer "motion1_hour"
+    t.integer "motion1_minute"
+    t.string "motion2"
+    t.integer "motion2_hour"
+    t.integer "motion2_minute"
+    t.string "motion3"
+    t.integer "motion3_hour"
+    t.integer "motion3_minute"
+    t.integer "cal_judge"
+    t.date "graph_date"
+  end
 
   create_table "records", force: :cascade do |t|
     t.integer "morning_cal"

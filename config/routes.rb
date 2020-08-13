@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   root 'graphs#index'
   post 'graphs/guest_sign_in', to: 'graphs#new_guest'
-  resource :graphs, only: %i[index create update]
+  resources :graphs
 end
