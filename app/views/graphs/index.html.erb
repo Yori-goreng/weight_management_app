@@ -49,3 +49,109 @@
 
 <%= render 'modal', action: 'new', title: '新規登録' %>
 <%= render 'modal', action: 'edit', title: '修正' %>
+
+<dl class="searchbox">
+<%= search_form_for @q do |f| %>
+<div class="flex margin-top-10">
+  <dt><%= f.label :体重検索 %></dt>
+  <div class="input_space flex">
+    <dd class="dd1"><%= f.number_field :weight_gteq, :class => 'text_field', :step => 0.1 %>以上〜</dd>
+    <dd class="dd2"><%= f.number_field :weight_lt, :class => 'text_field', :step => 0.1 %>未満</dd>
+  </div>
+</div>
+  <%= f.submit "検索", class: 'search-btn' %>
+<% end %>
+</dl>
+
+
+<% @records.each do |record| %>
+  <div class="container record_list">
+    <p class="measure">計測日：<%= record.record_date %></p>
+    <div class="row ">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+          <div class="intake">
+            <table>
+              <thead>
+                <tr class="intake_title">
+                  <td scope="col">トータル摂取カロリー</td>
+                  <th scope="col"><%= record.intake_cal %>Kcal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>朝食</th>
+                  <td data-label="朝食" class="price"><%= record.morning_cal %>Kcal</td>
+                </tr>
+                <tr>
+                  <th>昼食</th>
+                  <td data-label="昼食"class="price"><%= record.lunch_cal %>Kcal</td>
+                </tr>
+                <tr>
+                  <th>夕食</th>
+                  <td data-label="夕食"class="price"><%= record.dinner_cal %>Kcal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+          <div class="consumption">
+            <table>
+              <thead>
+                <tr class="consumption1_title">
+                  <td scope="col">トータル消費カロリー</td>
+                  <th scope="col"><%= (record.total_consumption_cal + record.user.basal_metabolism).round %>Kcal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>基礎代謝</th>
+                  <td data-label="朝食" class="price"><%= (record.user.basal_metabolism).round %>Kcal</td>
+                </tr>
+                <% if !record.motion1.blank? %>
+                  <tr>
+                    <th><%= record.motion1 %></th>
+                    <td data-label="朝食" class="price"><%= record.consumption1_cal %>Kcal</td>
+                  </tr>
+                <% end %>
+                <% if !record.motion2.blank? %>
+                  <tr>
+                    <th><%= record.motion2 %></th>
+                    <td data-label="朝食" class="price"><%= record.consumption2_cal %>Kcal</td>
+                  </tr>
+                <% end %>
+                <% if !record.motion3.blank? %>
+                  <tr>
+                    <th><%= record.motion3 %></th>
+                    <td data-label="朝食" class="price"><%= record.consumption3_cal %>Kcal</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+          <div class="today_weight">
+            <table>
+              <thead>
+                <tr class="today_cal_title">
+                  <td scope="col">本日のカロリー</td>
+                  <th scope="col"><%= (record.cal_judge - record.user.basal_metabolism).round %>Kcal</th>
+                </tr>
+              </thead>
+            </table>
+            <table class="margin_top_15">
+              <thead>
+                <tr class="today_weight_title">
+                  <td scope="col">本日の体重</td>
+                  <th scope="col"><%= record.weight %>Kg</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+<% end %>
