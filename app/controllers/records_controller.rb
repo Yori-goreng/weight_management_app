@@ -10,5 +10,21 @@ class RecordsController < ApplicationController
     gon.end_date = gon.records.last[:record_date].strftime('%Y-%m-%d')
     gon.basal_metabolism = User.find_by(id: 1).basal_metabolism
   end
-  
+
+  def new
+    @record = Record.new
+  end
+
+  def create
+    @record = Record.new(record_params)
+    @record.user_id = current_user.id
+    if @record.save
+      redirect_to("/records")
+    else
+      render(new_record_path)
+    end
+  end
+
+  private
+
 end
