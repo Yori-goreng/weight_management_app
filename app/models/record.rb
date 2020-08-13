@@ -1,7 +1,5 @@
 class Record < ApplicationRecord
-
   belongs_to :user
-
   # そのままデータを取り出すと，日付が不連続なデータになるため，日付が連続するデータを作成する。
   def self.chart_data(user)
     # ログインしたユーザの情報を渡す、昇順
